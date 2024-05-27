@@ -1,37 +1,51 @@
 .custom-table-container {
-    margin: 0 auto;
-    width: 80%; /* Tablo genişliğini belirli bir yüzde olarak ayarlayın */
-  }
-  
-  .custom-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 15px;
-  }
-  
-  .custom-table thead th {
-    background-color: white;
-    color: black;
-    border-bottom: 2px solid black; /* Başlıkların altında siyah bir çizgi */
-    padding-bottom: 10px;
-  }
-  
-  .custom-table tbody tr {
-    background-color: white;
-    color: black;
-    border-radius: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 15px;
-    overflow: hidden;
-  }
-  
-  .custom-table tbody td {
-    padding: 10px;
-    border-top: none;
-    border-bottom: none;
-  }
-  
-  .custom-table tbody tr:nth-of-type(even) {
-    background-color: #f9f9f9;
-  }
-  
+  margin: 0 auto;
+  width: 80%; /* Tablo genişliğini belirli bir yüzde olarak ayarlayın */
+  overflow-x: auto; /* Tablonun yatay kaydırma çubuğu olmadan responsif olmasını sağlar */
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 15px;
+  border-radius: 15px; /* Tablonun köşelerini oval hale getirir */
+  background-color: white; /* Tablonun arka plan rengi */
+  padding: 50px;
+}
+
+.custom-table thead th {
+  background-color: white;
+  color: black;
+  border-bottom: 2px solid black; /* Başlıkların altında siyah bir çizgi */
+  padding-bottom: 10px;
+  font-size: 12px;
+}
+
+.custom-table tbody tr {
+  background-color: white;
+  color: black;
+  border-radius: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+  overflow: hidden;
+}
+
+.custom-table tbody td {
+  padding: 10px;
+  border-top: none;
+  border-bottom: none;
+}
+
+.custom-table tbody tr:nth-of-type(even) {
+  background-color: #f9f9f9;
+}
+
+.custom-table td input[type="checkbox"] {
+  transform: scale(1.2); /* Checkbox boyutunu artırmak için */
+  margin-left: 20px;
+}
+
+.custom-table td input[type="checkbox"]:checked {
+  background-color:rgb(41, 223, 86); /* Seçili olduğunda arka plan rengi */
+  color: white; /* Seçili olduğunda işaret rengi */
+}

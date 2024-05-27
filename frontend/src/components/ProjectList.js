@@ -1,11 +1,15 @@
-// src/components/ProjectList.js
+// ProjectList.js
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Table,Button } from 'react-bootstrap';
-import './ProjectList.css'; // Yeni oluşturulan CSS dosyasını import edin
+import { Table, Button, Form } from 'react-bootstrap';
+import ProjectModal from 'C:/Users/yunus/Source/repos/bitirme_projesi/frontend/src/components/ProjectModal.js'; // Modal bileşenini import ettik
+import './ProjectList.css';
 
 const ProjectList = () => {
   const [projects, setProjects] = useState([]);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     axios.get('http://localhost:5141/api/Project')
@@ -17,46 +21,66 @@ const ProjectList = () => {
       });
   }, []);
 
+  const handleDetailClick = (project) => {
+    setSelectedProject(project);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <>
-      
-    <div className="custom-table-container">
-      <Table className="custom-table">
-        <thead>
-          <tr>
-            <th>Sıra</th>
-            <th>Yıl</th>
-            <th>Proje Türü</th>
-            <th>Proje Numarası</th>
-            <th>Proje Adı</th>
-            <th>Başlangıç Tarihi</th>
-            <th>Proje Süresi (ay)</th>
-            <th>Tamamlanma Durumu</th>
-            <th>Fakülte</th>
-            <th>Bölüm</th>
-          </tr>
-        </thead>
-        <tbody>
-          {projects.map((project, index) => (
-            <tr key={project.id}>
-              <td>{index + 1}</td>
-              <td>{project.year}</td>
-              <td>{project.projectType}</td>
-              <td>{project.projectNumber}</td>
-              <td>{project.projectName}</td>
-              <td>{project.startDate}</td>
-              <td>{project.duration}</td>
-              <td>{project.complationStatus}</td>
-              <td>{project.studentId}</td>
-              <td>{project.staffId}</td>
-              <td>
-                <Button variant="primary">Detay</Button>
-              </td>
+      <div className="custom-table-container">
+        <Table className="custom-table">
+          <thead>
+            <tr>
+              <th>Sıra</th>
+              <th>Yıl</th>
+              <th>Proje Türü</th>
+              <th>Proje Numarası</th>
+              <th>Proje Adı</th>
+              <th>Başlangıç Tarihi</th>
+              <th>Bitiş Tarihi</th>
+              <th>Proje Süresi (ay)</th>
+              <th>Tamamlanma Durumu</th>
+              <th>Fakülte</th>
+              <th>Bölüm</th>
+              <th>Detay</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
-    </div>
+          </thead>
+          <tbody>
+            {projects.map((project, index) => (
+              <tr key={project.projectId}>
+                <td>{index + 1}</td>
+                <td>{project.year}</td>
+                <td>{project.projectType}</td>
+                <td>{project.projectNumber}</td>
+                <td>{project.projectName}</td>
+                <td>{new Date(project.startDate).toLocaleDateString('tr-TR')}</td>
+                <td>{new Date(project.endDate).toLocaleDateString('tr-TR')}</td>
+                <td>{project.duration}</td>
+                <td>
+                  <Form.Check
+                    type="checkbox"
+                    checked={project.completionStatus}
+                    disabled
+                  />
+                </td>
+                <td>{project.studentId}</td>
+                <td>{project.staffId}</td>
+                <td>
+                  <Button variant="primary" onClick={() => handleDetailClick(project)}>Detay</Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
+      
+      {/* Modal */}
+      <ProjectModal show={showModal} handleClose={handleCloseModal} project={selectedProject} />
     </>
   );
 };

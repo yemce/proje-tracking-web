@@ -1,0 +1,28 @@
+.custom-navbar {
+  background-color: white; /* Arka plan beyaz */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Gölgeli arka plan */
+  padding: 20px 10px; /* Daha uzun yapmak için dikey padding */
+}
+
+.custom-navbar .navbar-brand {
+  display: flex;
+  align-items: center; /* Fotoğraf ve yazıyı yatayda hizalamak için */
+  margin-left: 0; /* Brandı sola yasla */
+  justify-content: flex-start !important; /* Brandı sola yasla */
+}
+
+.custom-navbar .navbar-brand img {
+  height: 70px; /* Fotoğraf yüksekliği */
+  margin-right: 10px; /* Fotoğraf ve marka ismi arasında boşluk */
+}
+
+.custom-navbar .navbar-brand,
+.custom-navbar .nav-link {
+  color: #044074 !important; /* Yazılar lacivert */
+  font-size: 18px; /* Yazı boyutunu büyüt */
+  font-weight: 500;
+}
+
+.custom-navbar .nav-link:hover {
+  color: #3DB166 !important; /* Hover durumunda daha koyu lacivert */
+}

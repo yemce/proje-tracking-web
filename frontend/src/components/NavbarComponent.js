@@ -1,23 +1,26 @@
 import React from 'react';
-import { Button, Navbar, Nav, Container } from 'react-bootstrap';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import './NavbarComponent.css'; // Yeni oluşturulan CSS dosyasını import edin
 
 function NavbarComponent() {
   return (
-    <div>
-      <Navbar bg="dark" variant="dark">
-        <Container>
-          <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+    <Navbar expand="lg" className="custom-navbar">
+      <Container>
+        <Navbar.Brand href="#home">
+          <img src="https://samsun.edu.tr/wp-content/uploads/2023/02/mavi-logo-yatay.png" alt="Logo" />
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
+            <Nav.Link >ANA SAYFA</Nav.Link>
+            <Nav.Link >PROJELER</Nav.Link>
+            <Nav.Link >FAKÜLTELER</Nav.Link>
           </Nav>
-        </Container>
-      </Navbar>
-      <Container className="mt-3">
-
+        </Navbar.Collapse>
       </Container>
-    </div>
+    </Navbar>
   );
 }
 

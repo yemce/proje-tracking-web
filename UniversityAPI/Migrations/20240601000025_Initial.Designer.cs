@@ -12,8 +12,8 @@ using UniversityAPI.Data;
 namespace UniversityAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240524222327_Initial1")]
-    partial class Initial1
+    [Migration("20240601000025_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -72,6 +72,9 @@ namespace UniversityAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProjectId"));
 
+                    b.Property<decimal>("Budget")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<bool>("CompletionStatus")
                         .HasColumnType("bit");
 
@@ -90,7 +93,7 @@ namespace UniversityAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProjectType")
+                    b.Property<int>("ProjectTypeId")
                         .HasColumnType("int");
 
                     b.Property<int?>("StaffId")
@@ -107,11 +110,30 @@ namespace UniversityAPI.Migrations
 
                     b.HasKey("ProjectId");
 
+                    b.HasIndex("ProjectTypeId");
+
                     b.HasIndex("StaffId");
 
                     b.HasIndex("StudentId");
 
                     b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("UniversityAPI.Models.ProjectType", b =>
+                {
+                    b.Property<int>("ProjectTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProjectTypeId"));
+
+                    b.Property<string>("ProjectTypeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ProjectTypeId");
+
+                    b.ToTable("ProjectTypes");
                 });
 
             modelBuilder.Entity("UniversityAPI.Models.Staff", b =>
@@ -136,6 +158,11 @@ namespace UniversityAPI.Migrations
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TC")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
 
                     b.HasKey("StaffId");
 
@@ -167,6 +194,11 @@ namespace UniversityAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("TC")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
+
                     b.HasKey("StudentId");
 
                     b.HasIndex("DepartmentId");
@@ -187,6 +219,12 @@ namespace UniversityAPI.Migrations
 
             modelBuilder.Entity("UniversityAPI.Models.Project", b =>
                 {
+                    b.HasOne("UniversityAPI.Models.ProjectType", "ProjectType")
+                        .WithMany()
+                        .HasForeignKey("ProjectTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("UniversityAPI.Models.Staff", "Staff")
                         .WithMany("Projects")
                         .HasForeignKey("StaffId");
@@ -194,6 +232,8 @@ namespace UniversityAPI.Migrations
                     b.HasOne("UniversityAPI.Models.Student", "Student")
                         .WithMany("Projects")
                         .HasForeignKey("StudentId");
+
+                    b.Navigation("ProjectType");
 
                     b.Navigation("Staff");
 

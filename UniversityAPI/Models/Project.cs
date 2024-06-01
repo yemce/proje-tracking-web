@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+﻿ using System.Text.Json.Serialization;
 
 namespace UniversityAPI.Models
 {
@@ -6,17 +6,20 @@ namespace UniversityAPI.Models
     {
         public int ProjectId { get; set; }
         public string ProjectNumber { get; set; }
-        //public string ProjectOwner { get; set; }
+        // ForeignKey ilişkisi
+        public int ProjectTypeId { get; set; }
+        [JsonIgnore]
+        public ProjectType ProjectType { get; set; }
         public string ProjectName { get; set; }
         public string Description { get; set; }
-        public int ProjectType { get; set; }
         public int Year { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int Duration => (EndDate.Year - StartDate.Year) * 12 + EndDate.Month - StartDate.Month;
         public bool CompletionStatus { get; set; }
+        public decimal Budget { get; set; }
 
-        public int? StudentId { get; set; }
+         public int? StudentId { get; set; }
         [JsonIgnore]
         public Student Student { get; set; }
 
@@ -24,21 +27,5 @@ namespace UniversityAPI.Models
         [JsonIgnore]
         public Staff Staff { get; set;}
 
-
-        // Öğrenci sahibi için
-        //public int? OwnerId { get; set; }
-        //public ProjectOwnerType OwnerType { get; set; } // "Student" or "Staff"
-
-        //public Student StudentOwner { get; set; }
-
-        //// Personel sahibi için
-        //public int? StaffOwnerId { get; set; }
-        //public Staff StaffOwner { get; set; }
-
-        //public enum ProjectOwnerType
-        //{
-        //    Student,
-        //    Staff
-        //}
     }
 }

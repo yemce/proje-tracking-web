@@ -16,6 +16,9 @@ namespace UniversityAPI.Data
         public DbSet<Student> Students { get; set; }
         public DbSet<Staff> StaffMembers { get; set; }
         public DbSet<Project> Projects { get; set; }
+        public DbSet<ProjectType> ProjectTypes { get; set; }
+
+
 
     }
 }

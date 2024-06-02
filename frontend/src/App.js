@@ -1,6 +1,7 @@
 import React from 'react';
 import NavbarComponent from './components/NavbarComponent';
 import ProjectList from './components/ProjectList';
+import FacultyList from './pages/admin/deneme';
 
 function App() {
   return (

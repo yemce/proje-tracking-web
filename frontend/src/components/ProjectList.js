@@ -41,8 +41,7 @@ const ProjectList = () => {
               <th>Proje Türü</th>
               <th>Proje Numarası</th>
               <th>Proje Adı</th>
-              <th>Başlangıç Tarihi</th>
-              <th>Bitiş Tarihi</th>
+              <th>Yürütücü</th>
               <th>Proje Süresi (ay)</th>
               <th>Tamamlanma Durumu</th>
               <th>Fakülte</th>
@@ -55,11 +54,12 @@ const ProjectList = () => {
               <tr key={project.projectId}>
                 <td>{index + 1}</td>
                 <td>{project.year}</td>
-                <td>{project.projectType}</td>
+                <td>{project.projectTypeId}</td>
                 <td>{project.projectNumber}</td>
                 <td>{project.projectName}</td>
-                <td>{new Date(project.startDate).toLocaleDateString('tr-TR')}</td>
-                <td>{new Date(project.endDate).toLocaleDateString('tr-TR')}</td>
+                <td>{project.studentId || project.staffId}</td>
+                {/* <td>{new Date(project.startDate).toLocaleDateString('tr-TR')}</td>
+                <td>{new Date(project.endDate).toLocaleDateString('tr-TR')}</td> */}
                 <td>{project.duration}</td>
                 <td>
                   <Form.Check
@@ -68,8 +68,8 @@ const ProjectList = () => {
                     disabled
                   />
                 </td>
-                <td>{project.studentId}</td>
-                <td>{project.staffId}</td>
+                <td>Fakülte</td>
+                <td>Bölüm</td>
                 <td>
                   <Button variant="primary" onClick={() => handleDetailClick(project)}>Detay</Button>
                 </td>

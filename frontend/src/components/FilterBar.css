@@ -1,0 +1,32 @@
+.filter-bar-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .filter-bar-form {
+    width: 100%;
+    max-width: 800px;
+    padding: 0 20px;
+  }
+  
+  .filter-bar-form .form-control {
+    font-size: 14px;
+    font-weight: bold;
+    border: 1px solid #000; /* Bordür kalınlaştırıldı */
+    position: relative;
+    
+  }
+  
+  .filter-bar-form .dropdown-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+  
+  .filter-bar-form .form-group {
+    position: relative;
+  }
+  

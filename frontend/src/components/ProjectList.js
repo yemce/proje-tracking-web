@@ -3,18 +3,35 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Table, Button, Form } from 'react-bootstrap';
-import ProjectModal from 'C:/Users/yunus/Source/repos/bitirme_projesi/frontend/src/components/ProjectModal.js'; // Modal bileşenini import ettik
+import ProjectModal from './ProjectModal'; // Modal bileşenini import ettik
+import FilterBar from './FilterBar'; // FilterBar bileşenini import ettik
 import './ProjectList.css';
 
 const ProjectList = () => {
   const [projects, setProjects] = useState([]);
+  const [filteredProjects, setFilteredProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
   const [showModal, setShowModal] = useState(false);
+
+  const [filterOptions, setFilterOptions] = useState({
+    years: [],
+    projectTypes: [],
+    faculties: [],
+    departments: []
+  });
 
   useEffect(() => {
     axios.get('http://localhost:5141/api/Project')
       .then(response => {
-        setProjects(response.data);
+        const projectsData = response.data;
+        setProjects(projectsData);
+        setFilteredProjects(projectsData); // Filtrelenmiş projeleri başlangıçta tüm projeler olarak ayarlıyoruz
+        setFilterOptions({
+          years: [...new Set(projectsData.map(project => project.year))],
+          projectTypes: [...new Set(projectsData.map(project => project.projectTypeId))],
+          faculties: [...new Set(projectsData.map(project => project.faculty))],
+          departments: [...new Set(projectsData.map(project => project.department))]
+        });
       })
       .catch(error => {
         console.error('There was an error fetching the projects!', error);
@@ -30,8 +47,31 @@ const ProjectList = () => {
     setShowModal(false);
   };
 
+  const handleFilterChange = (filters) => {
+    let newFilteredProjects = projects;
+
+    if (filters.year) {
+      newFilteredProjects = newFilteredProjects.filter(project => project.year === parseInt(filters.year));
+    }
+
+    if (filters.projectType) {
+      newFilteredProjects = newFilteredProjects.filter(project => project.projectTypeId === parseInt(filters.projectType));
+    }
+
+    if (filters.faculty) {
+      newFilteredProjects = newFilteredProjects.filter(project => project.faculty === filters.faculty);
+    }
+
+    if (filters.department) {
+      newFilteredProjects = newFilteredProjects.filter(project => project.department === filters.department);
+    }
+
+    setFilteredProjects(newFilteredProjects);
+  };
+
   return (
     <>
+      <FilterBar handleFilterChange={handleFilterChange} filterOptions={filterOptions} /> {/* Filtre barını ekliyoruz */}
       <div className="custom-table-container">
         <Table className="custom-table">
           <thead>
@@ -50,7 +90,7 @@ const ProjectList = () => {
             </tr>
           </thead>
           <tbody>
-            {projects.map((project, index) => (
+            {filteredProjects.map((project, index) => (
               <tr key={project.projectId}>
                 <td>{index + 1}</td>
                 <td>{project.year}</td>

@@ -10,7 +10,7 @@
   border-spacing: 0 15px;
   border-radius: 15px; /* Tablonun köşelerini oval hale getirir */
   background-color: white; /* Tablonun arka plan rengi */
-  padding: 50px;
+  padding: 0px;
 }
 
 .custom-table thead th {
@@ -19,6 +19,7 @@
   border-bottom: 2px solid black; /* Başlıkların altında siyah bir çizgi */
   padding-bottom: 10px;
   font-size: 12px;
+  margin: 5px;
 }
 
 .custom-table tbody tr {

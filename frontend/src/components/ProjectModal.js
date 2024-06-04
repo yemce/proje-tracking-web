@@ -13,9 +13,9 @@ const ProjectModal = ({ show, handleClose, project }) => {
         {project && (
           <div>
             <p><strong>Proje Numarası:</strong> {project.projectNumber}</p>
-            <p><strong>Proje Türü:</strong> {project.projectTypeId}</p>
+            <p><strong>Proje Türü:</strong> {project.projectTypeName}</p>
             <p><strong>Proje Adı:</strong> {project.projectName}</p>
-            <p><strong>Proje Yürütücüsü:</strong> {project.studentId || project.staffId}</p>
+            <p><strong>Proje Yürütücüsü:</strong> {project.studentName || project.staffName}</p>
             <p><strong>Proje Açıklaması:</strong> {project.description}</p>
             <p><strong>Başlangıç Tarihi:</strong> {new Date(project.startDate).toLocaleDateString('tr-TR')}</p>
             <p><strong>Bitiş Tarihi:</strong> {new Date(project.endDate).toLocaleDateString('tr-TR')}</p>

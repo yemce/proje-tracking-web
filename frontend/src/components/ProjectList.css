@@ -51,3 +51,14 @@
   background-color:rgb(41, 223, 86); /* Seçili olduğunda arka plan rengi */
   color: white; /* Seçili olduğunda işaret rengi */
 }
+
+
+.search-bar {
+  width: 200px; /* Arama çubuğunun genişliği */
+  float: right; /* Sağa yasla */
+  box-shadow: none !important; /* Gölgeyi kaldır */
+  border: 2px;
+}
+.form-control:focus {
+  box-shadow: none!important;
+}

@@ -28,7 +28,7 @@ namespace UniversityAPI.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<IEnumerable<Faculty>>> CreateFaculty(Faculty faculty)
+        public async Task<ActionResult<IEnumerable<Faculty>>> CreateFaculty([FromBody]Faculty faculty)
         {
             if (faculty == null)
             {
@@ -41,6 +41,14 @@ namespace UniversityAPI.Controllers
 
             // Tüm fakülteleri döndürmek için.
             var faculties = await _context.Faculties.ToListAsync();
+            return Ok(faculties);
+        }
+        [HttpPut]
+        [HttpDelete]
+        public async Task<ActionResult<IEnumerable<Faculty>>> DeleteFaculty()
+        {
+            var faculties = await _context.Faculties.ToListAsync();
+
             return Ok(faculties);
         }
 
